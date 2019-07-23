@@ -58,7 +58,7 @@
         <guava.version>27.0.1-jre</guava.version>
     </properties>
     <modules>
-        <module>dubbo</module>
+        <!-- <module>dubbo</module>
         <module>springboot</module>
         <module>nacos</module>
         <module>springboot-dubbo-seata</module>
@@ -66,7 +66,7 @@
         <module>springcloud-jpa-seata</module>
         <module>nutzboot-dubbo-fescar</module>
         <module>ha</module>
-        <module>springcloud-eureka-seata</module>
+        <module>springcloud-eureka-seata</module> -->
         <module>
         	springcloud-kubernetes-seata
         </module>
@@ -323,5 +323,57 @@
             </plugin>
         </plugins>
     </build>
-
+    <distributionManagement>
+		<repository>
+			<id>${nexus-release-id}</id>
+			<url>${nexus-release-url}</url>
+		</repository>
+		<snapshotRepository>
+			<id>${nexus-snapshots-id}</id>
+			<name>User Project Snapshot</name>
+			<url>${nexus-snapshots-url}</url>
+			<uniqueVersion>true</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
+    <profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<profileActive>dev</profileActive>
+				<docker.namespace>iotbull</docker.namespace>
+				<deploy.namespace>zhanghong</deploy.namespace>
+				<docker.registry>registry.cn-hangzhou.aliyuncs.com</docker.registry>
+				<nexus-iotbull-lib-repo-url>http://nexus.iotbull.com:8081/nexus/content/repositories/iotbull-lib-repo/</nexus-iotbull-lib-repo-url>
+				<nexus-release-url>http://nexus.iotbull.com:8081/nexus/content/repositories/releases</nexus-release-url>
+				<nexus-snapshots-url>http://nexus.iotbull.com:8081/nexus/content/repositories/snapshots</nexus-snapshots-url>
+				<nexus-release-id>nexus-release</nexus-release-id>
+				<nexus-snapshots-id>nexus-snapshots</nexus-snapshots-id>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<profileActive>prod</profileActive>
+				<docker.namespace>iotbull</docker.namespace>
+				<deploy.namespace>zhanghong</deploy.namespace>
+				<docker.registry>registry.cn-hangzhou.aliyuncs.com</docker.registry>
+				<!-- <nexus-release-id>rdc-releases</nexus-release-id>
+				<nexus-snapshots-id>rdc-snapshots</nexus-snapshots-id>
+				<nexus-iotbull-lib-repo-url>https://repo.rdc.aliyun.com/repository/51087-release-2GC3Xz/</nexus-iotbull-lib-repo-url>
+				<nexus-snapshots-url>https://repo.rdc.aliyun.com/repository/51087-snapshot-PhmhFf/</nexus-snapshots-url>
+				<nexus-release-url>https://repo.rdc.aliyun.com/repository/51087-release-2GC3Xz/</nexus-release-url> 
+				 -->
+				 <nexus-iotbull-lib-repo-url>http://nexus.iotbull.com:8081/nexus/content/repositories/iotbull-lib-repo/</nexus-iotbull-lib-repo-url>
+				<nexus-release-url>http://nexus.iotbull.com:8081/nexus/content/repositories/releases</nexus-release-url>
+				<nexus-snapshots-url>http://nexus.iotbull.com:8081/nexus/content/repositories/snapshots</nexus-snapshots-url>
+				<nexus-release-id>nexus-release</nexus-release-id>
+				<nexus-snapshots-id>nexus-snapshots</nexus-snapshots-id>
+			</properties>
+			
+		</profile>
+	</profiles>
+    
 </project>
