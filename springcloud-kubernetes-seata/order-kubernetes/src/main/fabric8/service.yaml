@@ -5,7 +5,7 @@ metadata:
 spec:
   ports:
   - name: web
-    port: 80
+    port: 8082
     targetPort: 8082
   selector:
     project: ${project.artifactId}

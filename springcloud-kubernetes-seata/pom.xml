@@ -131,6 +131,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                	<execution>
+                		<goals><goal>repackage</goal></goals>
+                	</execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -208,10 +213,12 @@
 					<mode>kubernetes</mode>
 					<namespace>${deploy.namespace}</namespace>
 					<verbose>true</verbose>
-					<registry>${docker.registry}</registry>
+					<pullRegistry>docker.io</pullRegistry>
+				    <pushRegistry>${docker.registry}</pushRegistry>
 					<skip>${skipDocker}</skip>
 					<switchToDeployment>true</switchToDeployment>
 					<skipResourceValidation>true</skipResourceValidation>
+					
 					<!-- <skipBuild>${skipDocker}</skipBuild> -->
 					<!-- <pushRegistry>${docker.registry}</pushRegistry> <pullRegistry>${docker.registry}</pullRegistry> -->
 					<!-- <outputDirectory>target/output</outputDirectory> -->
