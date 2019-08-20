@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author jimin.jm@alibaba-inc.com
  * @date 2019/06/14
  */
-@FeignClient(name = "account-kubernetes", url = "account-kubernetes:8083")
+@FeignClient(name = "account-kubernetes-tcc", url = "account-kubernetes-tcc:8083")
 public interface UserFeignClient {
 
     @GetMapping("/reduce")

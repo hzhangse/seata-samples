@@ -263,7 +263,7 @@
     </build>
 
     <properties>
-    	<fabric8.maven.plugin.version>4.0.0-M2</fabric8.maven.plugin.version>
+    	<fabric8.maven.plugin.version>4.2.0</fabric8.maven.plugin.version>
     	<skipDocker>true</skipDocker>
     </properties>
 

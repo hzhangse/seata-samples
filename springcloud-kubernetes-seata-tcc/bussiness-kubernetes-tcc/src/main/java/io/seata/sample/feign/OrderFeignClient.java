@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author jimin.jm@alibaba-inc.com
  * @date 2019/06/14
  */
-@FeignClient(name = "order-kubernetes", url = "order-kubernetes:8082")
+@FeignClient(name = "order-kubernetes-tcc", url = "order-kubernetes-tcc:8082")
 public interface OrderFeignClient {
 
     @GetMapping("/create")
