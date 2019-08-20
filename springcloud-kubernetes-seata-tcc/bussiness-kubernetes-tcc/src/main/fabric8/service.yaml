@@ -1,0 +1,12 @@
+metadata:
+  labels:
+    project: ${project.artifactId}
+    version: ${project.version}
+spec:
+  ports:
+  - name: web
+    port: 8084
+    targetPort: 8084
+  selector:
+    project: ${project.artifactId}
+    
