@@ -4,12 +4,16 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import io.seata.sample.feign.OrderFeignClient;
-import io.seata.sample.feign.StorageFeignClient;
-import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import com.alipay.sofa.runtime.api.annotation.SofaReference;
+import com.alipay.sofa.runtime.api.annotation.SofaReferenceBinding;
+
+import io.seata.sample.feign.OrderFeignClient;
+import io.seata.sample.feign.StorageFeignClient;
+import io.seata.spring.annotation.GlobalTransactional;
 
 /**
  * @author jimin.jm@alibaba-inc.com
@@ -23,6 +27,12 @@ public class BusinessService {
     @Autowired
     private OrderFeignClient orderFeignClient;
 
+    @SofaReference(interfaceType = StorageService.class, binding = @SofaReferenceBinding(bindingType = "bolt"))
+    private StorageService storageService;
+    
+    @SofaReference(interfaceType = OrderService.class, binding = @SofaReferenceBinding(bindingType = "bolt"))
+    private OrderService orderService;
+    
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -34,10 +44,21 @@ public class BusinessService {
      * @param orderCount
      */
     @GlobalTransactional
-    public void purchase(String userId, String commodityCode, int orderCount) {
+    public void purchaseFeign(String userId, String commodityCode, int orderCount) {
         storageFeignClient.deduct(commodityCode, orderCount);
 
         orderFeignClient.create(userId, commodityCode, orderCount);
+
+        if (!validData()) {
+            throw new RuntimeException("账户或库存不足,执行回滚");
+        }
+    }
+    
+    @GlobalTransactional
+    public void purchase(String userId, String commodityCode, int orderCount) {
+    	storageService.deduct(null,commodityCode, orderCount);
+
+    	orderService.create(null,userId, commodityCode, orderCount);
 
         if (!validData()) {
             throw new RuntimeException("账户或库存不足,执行回滚");

@@ -2,7 +2,10 @@ package io.seata.sample.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+
+import com.alipay.sofa.runtime.api.annotation.SofaService;
+import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
 
 import io.seata.rm.tcc.api.BusinessActionContext;
 import io.seata.sample.service.AccountService;
@@ -11,13 +14,17 @@ import io.seata.sample.service.AccountService;
  * @author jimin.jm@alibaba-inc.com
  * @date 2019/06/14
  */
-@Service
+
+@SofaService(interfaceType = AccountService.class, bindings = { @SofaServiceBinding(bindingType = "bolt") })
+@Component
 public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public boolean reduce(String userId, int money) {
+	
+	@Override
+	public boolean reduce(BusinessActionContext actionContext, String userId, int money) {
 		boolean result = false;
 		try {
 			int changed = jdbcTemplate.update("update account_tbl set money = money - ? where user_id = ?",
@@ -27,12 +34,6 @@ public class AccountServiceImpl implements AccountService {
 			ex.printStackTrace();
 		}
 		return result;
-	}
-
-	@Override
-	public boolean prepare(BusinessActionContext actionContext, String userId, int money) {
-		// TODO Auto-generated method stub
-		return reduce(userId, money);
 	}
 
 	@Override

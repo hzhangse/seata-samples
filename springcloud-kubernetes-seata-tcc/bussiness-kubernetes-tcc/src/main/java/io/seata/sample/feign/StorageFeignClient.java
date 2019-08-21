@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author jimin.jm@alibaba-inc.com
  * @date 2019/06/14
  */
-@FeignClient(name = "storage-kubernetes-tcc", url = "storage-kubernetes-tcc:8081")
+@FeignClient(name = "storage-kubernetes-tcc", url = "localhost:8081")
 public interface StorageFeignClient {
 
     @GetMapping("/deduct")

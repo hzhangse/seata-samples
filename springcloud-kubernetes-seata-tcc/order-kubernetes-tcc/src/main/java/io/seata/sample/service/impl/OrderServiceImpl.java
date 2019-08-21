@@ -2,22 +2,28 @@ package io.seata.sample.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
+
+import com.alipay.sofa.runtime.api.annotation.SofaReference;
+import com.alipay.sofa.runtime.api.annotation.SofaReferenceBinding;
+import com.alipay.sofa.runtime.api.annotation.SofaService;
+import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
 
 import io.seata.rm.tcc.api.BusinessActionContext;
-import io.seata.sample.feign.UserFeignClient;
+
+import io.seata.sample.service.AccountService;
 import io.seata.sample.service.OrderService;
 
 /**
  * @author jimin.jm@alibaba-inc.com
  * @date 2019/06/14
  */
-@Service
+@SofaService(interfaceType = OrderService.class, bindings = { @SofaServiceBinding(bindingType = "bolt") })
 public class OrderServiceImpl implements OrderService {
 
-	@Autowired
-	private UserFeignClient userFeignClient;
-
+//	@Autowired
+//	private UserFeignClient userFeignClient;
+	@SofaReference(interfaceType = AccountService.class, binding = @SofaReferenceBinding(bindingType = "bolt"))
+    private AccountService accountService;
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -29,10 +35,10 @@ public class OrderServiceImpl implements OrderService {
 			jdbcTemplate.update("insert order_tbl(user_id,commodity_code,count,money) values(?,?,?,?)",
 					new Object[] { userId, commodityCode, count, orderMoney });
 
-			userFeignClient.reduce(userId, orderMoney);
+			accountService.reduce(null,userId, orderMoney);
 			result = true;
 		} catch (Throwable ex) {
-
+			ex.printStackTrace();
 		}
 		return result;
 	}
@@ -60,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
 			//userFeignClient.reduce(userId, orderMoney);
 			result = true;
 		} catch (Throwable ex) {
-
+			ex.printStackTrace();
 		}
 		return result;
 	}
