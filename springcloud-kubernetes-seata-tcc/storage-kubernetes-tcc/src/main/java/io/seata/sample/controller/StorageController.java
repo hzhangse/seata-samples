@@ -1,4 +1,4 @@
-package io.seata.sample.controller;
+/*package io.seata.sample.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,10 +8,10 @@ import com.alipay.sofa.runtime.api.annotation.SofaReferenceBinding;
 
 import io.seata.sample.service.StorageService;
 
-/**
+*//**
  * @author jimin.jm@alibaba-inc.com
  * @date 2019/06/14
- */
+ *//*
 @RestController
 public class StorageController {
 
@@ -24,3 +24,4 @@ public class StorageController {
        
     }
 }
+*/

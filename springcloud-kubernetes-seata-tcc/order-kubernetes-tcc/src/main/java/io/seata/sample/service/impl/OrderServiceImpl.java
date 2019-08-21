@@ -2,6 +2,7 @@ package io.seata.sample.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import com.alipay.sofa.runtime.api.annotation.SofaReference;
 import com.alipay.sofa.runtime.api.annotation.SofaReferenceBinding;
@@ -18,6 +19,7 @@ import io.seata.sample.service.OrderService;
  * @date 2019/06/14
  */
 @SofaService(interfaceType = OrderService.class, bindings = { @SofaServiceBinding(bindingType = "bolt") })
+@Component
 public class OrderServiceImpl implements OrderService {
 
 //	@Autowired
