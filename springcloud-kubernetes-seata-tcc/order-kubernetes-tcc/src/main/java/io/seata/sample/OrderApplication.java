@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.alibaba.druid.pool.DruidDataSource;
@@ -15,8 +16,7 @@ import com.alibaba.druid.pool.DruidDataSource;
  * @date 2019/06/14
  */
 @SpringBootApplication
-//@EnableFeignClients
-//@EnableEurekaClient
+@ImportResource("classpath:spring/*.xml")
 public class OrderApplication {
 
     public static void main(String[] args) {

@@ -15,28 +15,11 @@ import com.alibaba.druid.pool.DruidDataSource;
  * @date 2019/06/14
  */
 @SpringBootApplication
-//@EnableEurekaClient
-
-//@EnableFeignClients
 public class AccountApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AccountApplication.class, args);
     }
-
-//    @Bean
-//    @ConfigurationProperties(prefix = "spring.datasource")
-//    public DataSource dataSource() {
-//        DruidDataSource druidDataSource = new DruidDataSource();
-//        return druidDataSource;
-//    }
-
-//    @Primary
-//    @Bean("dataSourceProxy")
-//    public DataSourceProxy dataSourceProxy(DataSource dataSource) {
-//        return new DataSourceProxy(dataSource);
-//    }
-
 
     
 

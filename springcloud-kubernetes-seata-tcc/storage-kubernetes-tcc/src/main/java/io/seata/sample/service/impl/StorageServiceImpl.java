@@ -26,9 +26,9 @@ public class StorageServiceImpl implements StorageService{
 	public boolean deduct(BusinessActionContext actionContext, String commodityCode, Integer count) {
 		boolean result = false;
 		try {
-			jdbcTemplate.update("update storage_tbl set count = count - ? where commodity_code = ?",
+			int updated = jdbcTemplate.update("update storage_tbl set count = count - ? where commodity_code = ?",
 		            new Object[] {count, commodityCode});
-			result = true;
+			result = updated ==1;
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 		}

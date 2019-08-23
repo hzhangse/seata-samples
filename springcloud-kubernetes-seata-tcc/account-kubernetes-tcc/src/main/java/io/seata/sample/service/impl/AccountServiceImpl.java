@@ -15,14 +15,13 @@ import io.seata.sample.service.AccountService;
  * @date 2019/06/14
  */
 
-@SofaService(interfaceType = AccountService.class, bindings = { @SofaServiceBinding(bindingType = "bolt") })
 @Component
+@SofaService(interfaceType = AccountService.class, bindings = { @SofaServiceBinding(bindingType = "bolt") })
 public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	
 	@Override
 	public boolean reduce(BusinessActionContext actionContext, String userId, int money) {
 		boolean result = false;

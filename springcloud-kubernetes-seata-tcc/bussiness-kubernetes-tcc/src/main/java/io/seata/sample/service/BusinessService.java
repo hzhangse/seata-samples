@@ -27,10 +27,10 @@ public class BusinessService {
     @Autowired
     private OrderFeignClient orderFeignClient;
 
-    @SofaReference(interfaceType = StorageService.class, binding = @SofaReferenceBinding(bindingType = "bolt"))
+    @Autowired
     private StorageService storageService;
     
-    @SofaReference(interfaceType = OrderService.class, binding = @SofaReferenceBinding(bindingType = "bolt"))
+    @Autowired
     private OrderService orderService;
     
     @Autowired

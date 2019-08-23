@@ -9,6 +9,7 @@ import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
  * @date 2019/06/14
  */
 
+//@LocalTCC
 public interface StorageService {
 
  

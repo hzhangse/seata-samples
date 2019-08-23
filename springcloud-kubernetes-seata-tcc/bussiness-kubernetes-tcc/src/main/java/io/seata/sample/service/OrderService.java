@@ -8,7 +8,7 @@ import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
  * @author jimin.jm@alibaba-inc.com
  * @date 2019/06/14
  */
-
+//@LocalTCC
 public interface OrderService {
 
 

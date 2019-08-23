@@ -22,9 +22,9 @@ import io.seata.sample.service.OrderService;
 @Component
 public class OrderServiceImpl implements OrderService {
 
-//	@Autowired
+	@Autowired
 //	private UserFeignClient userFeignClient;
-	@SofaReference(interfaceType = AccountService.class, binding = @SofaReferenceBinding(bindingType = "bolt"))
+//	@SofaReference(interfaceType = AccountService.class, binding = @SofaReferenceBinding(bindingType = "bolt"))
     private AccountService accountService;
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
 			jdbcTemplate.update("delete from order_tbl where user_id=? and commodity_code=? and count=? and money=? ",
 					new Object[] { userId, commodityCode, count, orderMoney });
 
-			//userFeignClient.reduce(userId, orderMoney);
+			accountService.reduce(null, userId, orderMoney);
 			result = true;
 		} catch (Throwable ex) {
 			ex.printStackTrace();
