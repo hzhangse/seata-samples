@@ -44,6 +44,7 @@ public class BusinessService {
 
     	orderService.create(null,userId, commodityCode, orderCount);
 
+    	
         if (!validData()) {
             throw new RuntimeException("账户或库存不足,执行回滚");
         }
@@ -59,6 +60,12 @@ public class BusinessService {
     }
 
     public boolean validData() {
+    	try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         Map accountMap = jdbcTemplate.queryForMap("select * from account_tbl where user_id='U100000'");
         if (Integer.parseInt(accountMap.get("money").toString()) < 0) {
             return false;

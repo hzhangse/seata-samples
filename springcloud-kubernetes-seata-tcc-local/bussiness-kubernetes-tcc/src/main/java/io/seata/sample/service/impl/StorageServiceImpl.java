@@ -15,7 +15,7 @@ public class StorageServiceImpl implements StorageService {
 	@Autowired
 	private StorageFeignClient storageFeignClient;
 	@Override
-	@GenIdempotenceKey(uniqueKey = "#actionContext.branchId")
+	@GenIdempotenceKey(uniqueKey = "#actionContext.xid+'_'+#actionContext.branchId")
 	public Boolean deduct(BusinessActionContext actionContext, String commodityCode, Integer count) {
 		boolean result = false;
 		try {
@@ -28,14 +28,14 @@ public class StorageServiceImpl implements StorageService {
 	}
 
 	@Override
-	@ApplyIdempotence(uniqueKey = "#actionContext.branchId")
+	@ApplyIdempotence(uniqueKey = "#actionContext.xid+'_'+#actionContext.branchId")
 	public Boolean commit(BusinessActionContext actionContext) {
 		
 		return true;
 	}
 
 	@Override
-	@ApplyIdempotence(uniqueKey = "#actionContext.branchId")
+	@ApplyIdempotence(uniqueKey = "#actionContext.xid+'_'+#actionContext.branchId")
 	public Boolean rollback(BusinessActionContext actionContext) {
 		boolean result = false;
 		try {

@@ -17,7 +17,7 @@ public class OrderServiceImpl implements OrderService {
 	private OrderFeignClient orderFeignClient;
 
 	@Override
-	//@GenIdempotenceKey(uniqueKey = "#actionContext.branchId")
+	@GenIdempotenceKey(uniqueKey = "#actionContext.xid+'_'+#actionContext.branchId")
 	public Boolean create(BusinessActionContext actionContext, String userId, String commodityCode, Integer count) {
 		boolean result = false;
 		try {
@@ -31,14 +31,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	@ApplyIdempotence(uniqueKey = "#actionContext.branchId")
+	@ApplyIdempotence(uniqueKey = "#actionContext.xid+'_'+#actionContext.branchId")
 	public Boolean commit(BusinessActionContext actionContext) {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
-	//@ApplyIdempotence(uniqueKey = "#actionContext.branchId")
+	@ApplyIdempotence(uniqueKey = "#actionContext.xid+'_'+#actionContext.branchId")
 	public Boolean rollback(BusinessActionContext actionContext) {
 		boolean result = false;
 		try {
