@@ -40,11 +40,8 @@ public class BusinessService {
      */
     @GlobalTransactional
     public void purchase(String userId, String commodityCode, int orderCount) {
-    	storageService.deduct(null,commodityCode, orderCount);
-
-    	orderService.create(null,userId, commodityCode, orderCount);
-
-    	
+    	String commodityCode1 = orderService.create(null,userId, commodityCode, orderCount);   	
+    	storageService.deduct(null,commodityCode1, orderCount);  	
         if (!validData()) {
             throw new RuntimeException("账户或库存不足,执行回滚");
         }

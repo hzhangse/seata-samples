@@ -18,7 +18,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@GenIdempotenceKey(uniqueKey = "#actionContext.xid+'_'+#actionContext.branchId")
-	public Boolean create(BusinessActionContext actionContext, String userId, String commodityCode, Integer count) {
+	public String create(BusinessActionContext actionContext, String userId, String commodityCode, Integer count) {
 		boolean result = false;
 		try {
 
@@ -27,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 		}
-		return result;
+		return commodityCode;
 	}
 
 	@Override

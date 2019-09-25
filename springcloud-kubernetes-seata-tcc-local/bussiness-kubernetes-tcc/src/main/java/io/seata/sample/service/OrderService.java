@@ -7,9 +7,16 @@ import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
 
 @LocalTCC
 public interface OrderService {
-
+    /**
+     * return value can be any type
+     * @param actionContext
+     * @param userId
+     * @param commodityCode
+     * @param count
+     * @return 
+     */
 	@TwoPhaseBusinessAction(name = "OrderService", commitMethod = "commit", rollbackMethod = "rollback")
-	public Boolean create(BusinessActionContext actionContext,
+	public String create(BusinessActionContext actionContext,
 			@BusinessActionContextParameter(paramName = "userId") String userId,
 			@BusinessActionContextParameter(paramName = "commodityCode") String commodityCode,
 			@BusinessActionContextParameter(paramName = "count") Integer count);
